@@ -26,10 +26,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ResponseEntity<Project> createProject(Project project) throws ConstraintViolationException, ProjectCollectionException {
 
-        Optional<List<Project>> projectOptional = projectRepository.findAllByProjectName(project.getProjectName());
+        Optional<List<Project>> projectOptional = projectRepository.findAllByName(project.getName());
 
         if (projectOptional.isPresent() && projectOptional.get().size() > 0) {
-            throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getProjectName()));
+            throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getName()));
         }else{
             return ResponseEntity.status(201).body(this.projectRepository.save(project));
         }
@@ -48,14 +48,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<Project> getProjectByProjectName(String projectName) throws  ProjectCollectionException{
+    public ResponseEntity<Project> getProjectByName(String name) throws  ProjectCollectionException{
 
-        Optional<List<Project>> projectWithProjectName = this.projectRepository.findAllByProjectName(projectName);
+        Optional<List<Project>> projectWithName = this.projectRepository.findAllByName(name);
 
-        if (projectWithProjectName.isPresent() && projectWithProjectName.get().size() > 0) {
-            return new ResponseEntity<>(projectWithProjectName.get().get(0), HttpStatus.OK);
+        if (projectWithName.isPresent() && projectWithName.get().size() > 0) {
+            return new ResponseEntity<>(projectWithName.get().get(0), HttpStatus.OK);
         } else {
-            throw new ProjectCollectionException(ProjectCollectionException.NameNotFoundException(projectName));
+            throw new ProjectCollectionException(ProjectCollectionException.NameNotFoundException(name));
         }
     }
 
@@ -75,23 +75,23 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity<Project> updateProjectById(String id, Project project) throws ProjectCollectionException {
 
         Optional<Project> projectWithId = this.projectRepository.findById(id);
-        Optional<List<Project>> projectWithSameName = this.projectRepository.findAllByProjectName(project.getProjectName());
+        Optional<List<Project>> projectWithSameName = this.projectRepository.findAllByName(project.getName());
 
         if(projectWithId.isPresent()) {
 
             if (projectWithSameName.isPresent()) {
                 for(Project p : projectWithSameName.get()) {
                     if (!p.getId().equals(projectWithId.get().getId())) {
-                        throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getProjectName()));
+                        throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getName()));
                     }
                 }
             }
 
             Project projectToUpdate = projectWithId.get();
 
-            projectToUpdate.setProjectName(project.getProjectName() != null ? project.getProjectName() : projectToUpdate.getProjectName());
-            projectToUpdate.setProjectDescription(project.getProjectDescription() != null ? project.getProjectDescription() : projectToUpdate.getProjectDescription());
-            projectToUpdate.setProjectStatus(project.getProjectStatus() != null ? project.getProjectStatus() : projectToUpdate.getProjectStatus());
+            projectToUpdate.setName(project.getName() != null ? project.getName() : projectToUpdate.getName());
+            projectToUpdate.setDescription(project.getDescription() != null ? project.getDescription() : projectToUpdate.getDescription());
+            projectToUpdate.setEmployees(project.getEmployees() != null ? project.getEmployees() : projectToUpdate.getEmployees());
             projectRepository.save(projectToUpdate);
 
             return new ResponseEntity<>(projectToUpdate, HttpStatus.OK);
@@ -107,7 +107,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         if(project1.isPresent()) {
             Project projectToPatch = project1.get();
-            projectToPatch.setProjectStatus(project.getProjectStatus() != null ? project.getProjectStatus() : projectToPatch.getProjectStatus());
+            projectToPatch.setEmployees(project.getEmployees() != null ? project.getEmployees() : projectToPatch.getEmployees());
             projectRepository.save(projectToPatch);
 
             return new ResponseEntity<>(projectToPatch, HttpStatus.OK);

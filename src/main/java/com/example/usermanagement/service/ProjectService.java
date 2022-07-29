@@ -12,7 +12,7 @@ public interface ProjectService {
 
     List<Project> getAllProjects();
 
-    ResponseEntity<Project> getProjectByProjectName(String name) throws ProjectCollectionException;
+    ResponseEntity<Project> getProjectByName(String name) throws ProjectCollectionException;
 
     ResponseEntity<Project> getProjectById(String id) throws ProjectCollectionException;
 

@@ -38,9 +38,9 @@ public class ProjectController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> fetchProjectByProjectName(@RequestParam String name) {
+    public ResponseEntity<?> fetchProjectByName(@RequestParam String name) {
         try {
-            return new ResponseEntity<>(projectServiceImpl.getProjectByProjectName(name), HttpStatus.OK);
+            return new ResponseEntity<>(projectServiceImpl.getProjectByName(name), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
