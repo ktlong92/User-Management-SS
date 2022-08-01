@@ -23,17 +23,15 @@ public class Ticket {
     @NotNull(message = "Ticket Description Cannot Be Null")
     private String description;
 
-    private String projectName;
+    private String assignedTo;
+
+    private String estimatedHours;
 
     private Type type;
 
     private Status status;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="YYYY-LLL-dd", locale = "en_US") //Uses SimpleDateTimeFormat
-    @DateTimeFormat(pattern="YYYY-LLL-dd")
-    private String createdDate;
-
     private Priority priority;
 
-    private String assignedTo;
+
 }

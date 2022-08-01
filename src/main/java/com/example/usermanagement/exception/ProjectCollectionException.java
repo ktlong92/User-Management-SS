@@ -18,11 +18,11 @@ public class ProjectCollectionException extends Exception {
         return "Project with id: " + id + " not found!";
     }
 
-    public static String NameNotFoundException(String projectName) {
-        return "Project with project name: " + projectName + " not found!";
+    public static String NameNotFoundException(String name) {
+        return "Project with name: " + name + " not found!";
     }
 
-    public static String ProjectAlreadyExists(String projectName) {
-        return "Project with project name: " + projectName + " already exists";
+    public static String ProjectAlreadyExists(String name) {
+        return "Project with name: " + name + " already exists";
     }
 }

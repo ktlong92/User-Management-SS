@@ -91,11 +91,11 @@ public class TicketServiceImpl implements TicketService {
 
             ticketToUpdate.setTitle(ticket.getTitle() != null ? ticket.getTitle() : ticketToUpdate.getTitle());
             ticketToUpdate.setDescription(ticket.getDescription() != null ? ticket.getDescription() : ticketToUpdate.getDescription());
-            ticketToUpdate.setProjectName(ticket.getProjectName() != null ? ticket.getProjectName() : ticketToUpdate.getProjectName());
+            ticketToUpdate.setAssignedTo(ticket.getAssignedTo() != null ? ticket.getAssignedTo() : ticketToUpdate.getAssignedTo());
+            ticketToUpdate.setEstimatedHours(ticket.getEstimatedHours()!= null ? ticket.getEstimatedHours() : ticketToUpdate.getEstimatedHours());
             ticketToUpdate.setType(ticket.getType() != null ? ticket.getType() : ticketToUpdate.getType());
             ticketToUpdate.setStatus(ticket.getStatus() != null ? ticket.getStatus() : ticketToUpdate.getStatus());
             ticketToUpdate.setPriority(ticket.getPriority() != null ? ticket.getPriority() : ticketToUpdate.getPriority());
-            ticketToUpdate.setAssignedTo(ticket.getAssignedTo() != null ? ticket.getAssignedTo() : ticketToUpdate.getAssignedTo());
             ticketRepository.save(ticketToUpdate);
 
             return new ResponseEntity<>(ticketToUpdate, HttpStatus.OK);
