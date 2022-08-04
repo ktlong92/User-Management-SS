@@ -21,6 +21,6 @@ public class Employee {
     @NotNull(message = "Email Cannot Be Null")
     private String email;
     @NotNull(message = "Role Cannot Be Null")
-    private Role role;
+    private Role role = Role.EMPLOYEE;
 }
 
