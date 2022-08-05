@@ -26,7 +26,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ResponseEntity<Project> createProject(Project project) throws ConstraintViolationException, ProjectCollectionException {
 
-        Optional<List<Project>> projectOptional = projectRepository.findAllByName(project.getTitle());
+        Optional<List<Project>> projectOptional = projectRepository.findAllByTitle(project.getTitle());
 
         if (projectOptional.isPresent() && projectOptional.get().size() > 0) {
             throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getTitle()));
@@ -48,14 +48,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ResponseEntity<Project> getProjectByName(String name) throws  ProjectCollectionException{
+    public ResponseEntity<Project> getProjectByTitle(String title) throws  ProjectCollectionException{
 
-        Optional<List<Project>> projectWithName = this.projectRepository.findAllByName(name);
+        Optional<List<Project>> projectWithTitle = this.projectRepository.findAllByTitle(title);
 
-        if (projectWithName.isPresent() && projectWithName.get().size() > 0) {
-            return new ResponseEntity<>(projectWithName.get().get(0), HttpStatus.OK);
+        if (projectWithTitle.isPresent() && projectWithTitle.get().size() > 0) {
+            return new ResponseEntity<>(projectWithTitle.get().get(0), HttpStatus.OK);
         } else {
-            throw new ProjectCollectionException(ProjectCollectionException.NameNotFoundException(name));
+            throw new ProjectCollectionException(ProjectCollectionException.NameNotFoundException(title));
         }
     }
 
@@ -75,12 +75,12 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity<Project> updateProjectById(String id, Project project) throws ProjectCollectionException {
 
         Optional<Project> projectWithId = this.projectRepository.findById(id);
-        Optional<List<Project>> projectWithSameName = this.projectRepository.findAllByName(project.getTitle());
+        Optional<List<Project>> projectWithSameTitle = this.projectRepository.findAllByTitle(project.getTitle());
 
         if(projectWithId.isPresent()) {
 
-            if (projectWithSameName.isPresent()) {
-                for(Project p : projectWithSameName.get()) {
+            if (projectWithSameTitle.isPresent()) {
+                for(Project p : projectWithSameTitle.get()) {
                     if (!p.getId().equals(projectWithId.get().getId())) {
                         throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getTitle()));
                     }

@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface ProjectRepository extends MongoRepository<Project, String> {
 
-    Optional<List<Project>> findAllByName(String name);
+    Optional<List<Project>> findAllByTitle(String name);
 }
