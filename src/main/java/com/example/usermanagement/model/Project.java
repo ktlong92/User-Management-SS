@@ -11,8 +11,8 @@ public class Project {
     @Id
     private String id;
 
-    @NotNull(message = "Project Name Cannot Be Null")
-    private String name;
+    @NotNull(message = "Project Title Cannot Be Null")
+    private String title;
 
     @NotNull(message = "Project Description Cannot Be Null")
     private String description;

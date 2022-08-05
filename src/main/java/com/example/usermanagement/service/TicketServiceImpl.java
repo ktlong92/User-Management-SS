@@ -91,8 +91,7 @@ public class TicketServiceImpl implements TicketService {
 
             ticketToUpdate.setTitle(ticket.getTitle() != null ? ticket.getTitle() : ticketToUpdate.getTitle());
             ticketToUpdate.setDescription(ticket.getDescription() != null ? ticket.getDescription() : ticketToUpdate.getDescription());
-            ticketToUpdate.setAssignedTo(ticket.getAssignedTo() != null ? ticket.getAssignedTo() : ticketToUpdate.getAssignedTo());
-            ticketToUpdate.setEstimatedHours(ticket.getEstimatedHours()!= null ? ticket.getEstimatedHours() : ticketToUpdate.getEstimatedHours());
+            ticketToUpdate.setEmployees(ticket.getEmployees() != null ? ticket.getEmployees() : ticketToUpdate.getEmployees());
             ticketToUpdate.setType(ticket.getType() != null ? ticket.getType() : ticketToUpdate.getType());
             ticketToUpdate.setStatus(ticket.getStatus() != null ? ticket.getStatus() : ticketToUpdate.getStatus());
             ticketToUpdate.setPriority(ticket.getPriority() != null ? ticket.getPriority() : ticketToUpdate.getPriority());
@@ -114,7 +113,7 @@ public class TicketServiceImpl implements TicketService {
             ticketToPatch.setType(ticket.getType() != null ? ticket.getType() : ticketToPatch.getType());
             ticketToPatch.setStatus(ticket.getStatus() != null ? ticket.getStatus() : ticketToPatch.getStatus());
             ticketToPatch.setPriority(ticket.getPriority() != null ? ticket.getPriority() : ticketToPatch.getPriority());
-            ticketToPatch.setAssignedTo(ticket.getAssignedTo() != null ? ticket.getAssignedTo() : ticketToPatch.getAssignedTo());
+            ticketToPatch.setEmployees(ticket.getEmployees() != null ? ticket.getEmployees() : ticketToPatch.getEmployees());
             ticketRepository.save(ticketToPatch);
 
             return new ResponseEntity<>(ticketToPatch, HttpStatus.OK);

@@ -26,10 +26,10 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ResponseEntity<Project> createProject(Project project) throws ConstraintViolationException, ProjectCollectionException {
 
-        Optional<List<Project>> projectOptional = projectRepository.findAllByName(project.getName());
+        Optional<List<Project>> projectOptional = projectRepository.findAllByName(project.getTitle());
 
         if (projectOptional.isPresent() && projectOptional.get().size() > 0) {
-            throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getName()));
+            throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getTitle()));
         }else{
             return ResponseEntity.status(201).body(this.projectRepository.save(project));
         }
@@ -75,21 +75,21 @@ public class ProjectServiceImpl implements ProjectService {
     public ResponseEntity<Project> updateProjectById(String id, Project project) throws ProjectCollectionException {
 
         Optional<Project> projectWithId = this.projectRepository.findById(id);
-        Optional<List<Project>> projectWithSameName = this.projectRepository.findAllByName(project.getName());
+        Optional<List<Project>> projectWithSameName = this.projectRepository.findAllByName(project.getTitle());
 
         if(projectWithId.isPresent()) {
 
             if (projectWithSameName.isPresent()) {
                 for(Project p : projectWithSameName.get()) {
                     if (!p.getId().equals(projectWithId.get().getId())) {
-                        throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getName()));
+                        throw new ProjectCollectionException(ProjectCollectionException.ProjectAlreadyExists(project.getTitle()));
                     }
                 }
             }
 
             Project projectToUpdate = projectWithId.get();
 
-            projectToUpdate.setName(project.getName() != null ? project.getName() : projectToUpdate.getName());
+            projectToUpdate.setTitle(project.getTitle() != null ? project.getTitle() : projectToUpdate.getTitle());
             projectToUpdate.setDescription(project.getDescription() != null ? project.getDescription() : projectToUpdate.getDescription());
             projectToUpdate.setEmployees(project.getEmployees() != null ? project.getEmployees() : projectToUpdate.getEmployees());
             projectRepository.save(projectToUpdate);
