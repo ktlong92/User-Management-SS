@@ -17,7 +17,6 @@ public class Project {
     @NotNull(message = "Project Description Cannot Be Null")
     private String description;
 
-    @NotNull(message = "Assigned Employees Cannot Be Null")
-    private String employees;
+    private String employee = Employee.name;
 
 }

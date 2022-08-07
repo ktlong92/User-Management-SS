@@ -16,11 +16,12 @@ public class Employee {
     private String firstName;
     @NotNull(message = "Last Name Cannot Be Null")
     private String lastName;
+    public static String name = (firstName + " " + lastName);
     @NotNull(message = "Phone Number Cannot Be Null")
     private String phoneNumber;
     @NotNull(message = "Email Cannot Be Null")
     private String email;
     @NotNull(message = "Role Cannot Be Null")
-    private Role role = Role.EMPLOYEE;
+    private Role role = Role.Employee;
 }
 
